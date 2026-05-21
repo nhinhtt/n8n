@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import AnimatedText from "./AnimatedText";
+import { useIsMobile } from "./useMediaQuery";
 
 const stats = [
   { value: "07", label: "Years of practice" },
@@ -13,13 +14,17 @@ const stats = [
 
 export default function About() {
   const ref = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
 
-  const imgY = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [-3, 3]);
+  const imgYRaw = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
+  const rotateRaw = useTransform(scrollYProgress, [0, 1], [-3, 3]);
+  // On mobile, skip scroll-coupled transforms (saves a per-frame update).
+  const imgY = isMobile ? undefined : imgYRaw;
+  const rotate = isMobile ? undefined : rotateRaw;
 
   return (
     <section
@@ -66,9 +71,9 @@ export default function About() {
                 }}
               />
               <motion.div
-                className="absolute -bottom-6 -right-6 w-32 h-32 rounded-full bg-acid flex items-center justify-center text-ink font-display text-sm uppercase tracking-widest"
+                className="absolute -bottom-6 -right-6 w-32 h-32 rounded-full bg-acid flex items-center justify-center text-ink font-display text-sm uppercase tracking-widest will-change-transform"
                 animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
               >
                 <span className="absolute inset-0 flex items-center justify-center">
                   <svg viewBox="0 0 100 100" className="w-full h-full">

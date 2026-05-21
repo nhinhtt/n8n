@@ -2,16 +2,40 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useIsMobile } from "./useMediaQuery";
 
 export default function PageTransition() {
   const [show, setShow] = useState(true);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
-    const t = setTimeout(() => setShow(false), 1800);
+    const t = setTimeout(() => setShow(false), isMobile ? 1100 : 1800);
     return () => clearTimeout(t);
-  }, []);
+  }, [isMobile]);
 
   if (!show) return null;
+
+  if (isMobile) {
+    // Lightweight mobile intro — single fade, no column curtain
+    return (
+      <motion.div
+        className="fixed inset-0 z-[80] pointer-events-none bg-ink flex items-center justify-center"
+        initial={{ opacity: 1 }}
+        animate={{ opacity: 0 }}
+        transition={{ duration: 0.6, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <motion.span
+          className="font-display text-[18vw] leading-none text-cream"
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <span className="gradient-text italic">linh</span>
+          <span className="text-cream">.</span>
+        </motion.span>
+      </motion.div>
+    );
+  }
 
   const cols = 6;
 

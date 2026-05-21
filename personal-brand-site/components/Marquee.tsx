@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { useIsMobile } from "./useMediaQuery";
 
 const items = [
   "Brand Identity",
@@ -14,6 +15,7 @@ const items = [
 
 export default function Marquee() {
   const ref = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
@@ -21,10 +23,38 @@ export default function Marquee() {
   const x = useTransform(scrollYProgress, [0, 1], ["10%", "-25%"]);
   const xReverse = useTransform(scrollYProgress, [0, 1], ["-10%", "5%"]);
 
+  // Mobile: use lightweight CSS infinite marquee — no scroll-coupled transform.
+  if (isMobile) {
+    return (
+      <div
+        ref={ref}
+        className="relative py-10 border-y border-cream/10 overflow-hidden"
+      >
+        <div className="flex whitespace-nowrap gap-10 text-[12vw] leading-none font-display animate-marquee-slow will-change-transform">
+          {[...items, ...items].map((it, i) => (
+            <span key={`${it}-${i}`} className="flex items-center gap-10">
+              <span
+                className={
+                  i % 2 === 0 ? "text-cream" : "text-stroke text-cream italic"
+                }
+              >
+                {it}
+              </span>
+              <span className="text-electric">✦</span>
+            </span>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div ref={ref} className="relative py-12 md:py-20 border-y border-cream/10 overflow-hidden">
+    <div
+      ref={ref}
+      className="relative py-12 md:py-20 border-y border-cream/10 overflow-hidden"
+    >
       <motion.div
-        className="flex whitespace-nowrap gap-12 text-[8vw] md:text-[6vw] leading-none font-display"
+        className="flex whitespace-nowrap gap-12 text-[8vw] md:text-[6vw] leading-none font-display will-change-transform"
         style={{ x }}
       >
         {[...items, ...items, ...items].map((it, i) => (
@@ -42,7 +72,7 @@ export default function Marquee() {
       </motion.div>
 
       <motion.div
-        className="flex whitespace-nowrap gap-12 text-[5vw] md:text-[3vw] leading-none font-display mt-6 text-cream/40"
+        className="flex whitespace-nowrap gap-12 text-[5vw] md:text-[3vw] leading-none font-display mt-6 text-cream/40 will-change-transform"
         style={{ x: xReverse }}
       >
         {[...items, ...items, ...items].reverse().map((it, i) => (

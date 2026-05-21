@@ -22,7 +22,7 @@ export default function Navigation() {
 
   return (
     <motion.header
-      className="fixed top-0 left-0 right-0 z-40 px-6 md:px-12 py-6 flex items-center justify-between mix-blend-difference"
+      className="fixed top-0 left-0 right-0 z-40 px-6 md:px-12 py-6 flex items-center justify-between md:mix-blend-difference"
       variants={{ visible: { y: 0 }, hidden: { y: "-110%" } }}
       animate={hidden ? "hidden" : "visible"}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}

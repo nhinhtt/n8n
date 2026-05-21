@@ -17,9 +17,18 @@ export default function Contact() {
       id="contact"
       className="relative py-32 px-6 md:px-12 overflow-hidden"
     >
+      {/* Mobile: static radial glow. Desktop: full conic spin. */}
+      <div
+        aria-hidden
+        className="md:hidden absolute -top-32 left-1/2 -translate-x-1/2 w-[30rem] h-[30rem] rounded-full opacity-25 blur-2xl"
+        style={{
+          background:
+            "radial-gradient(circle, #ff2d55 0%, #3a5cff 50%, transparent 80%)",
+        }}
+      />
       <motion.div
         aria-hidden
-        className="absolute -top-32 left-1/2 -translate-x-1/2 w-[60rem] h-[60rem] rounded-full opacity-30 blur-3xl"
+        className="hidden md:block absolute -top-32 left-1/2 -translate-x-1/2 w-[60rem] h-[60rem] rounded-full opacity-30 blur-3xl will-change-transform"
         style={{
           background:
             "conic-gradient(from 0deg, #ff2d55, #d4ff3a, #3a5cff, #ff2d55)",

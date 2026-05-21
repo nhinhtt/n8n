@@ -18,12 +18,27 @@ body {
   background: #0a0a0a;
   color: #f5f1ea;
   cursor: none;
+  /* iOS smooth scrolling + prevent overscroll bounce repaints */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: none;
 }
 
 @media (pointer: coarse) {
   html,
   body {
     cursor: auto;
+  }
+}
+
+/* Respect users who explicitly want reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 

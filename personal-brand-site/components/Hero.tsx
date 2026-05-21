@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { ArrowDown } from "lucide-react";
+import { useIsMobile } from "./useMediaQuery";
 
 const heroWords = ["Bold.", "Brave.", "Boundless."];
 
@@ -23,14 +24,21 @@ const lineVariants = {
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
+  const isMobile = useIsMobile();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
+  const yRaw = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
+  const opacityRaw = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const scaleRaw = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
+
+  // Skip scroll-coupled parallax on mobile to avoid per-frame repaint of the
+  // whole hero block (cheap natural scroll instead).
+  const y = isMobile ? undefined : yRaw;
+  const opacity = isMobile ? undefined : opacityRaw;
+  const scale = isMobile ? undefined : scaleRaw;
 
   return (
     <section
@@ -38,35 +46,33 @@ export default function Hero() {
       id="top"
       className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-32 pb-12 px-6 md:px-12"
     >
-      {/* Animated blobs */}
+      {/* Animated blobs — mobile gets 1 lightweight blob, desktop gets 3 */}
       <motion.div
         aria-hidden
-        className="absolute top-1/4 -left-32 w-[40rem] h-[40rem] rounded-full bg-electric/40 blur-3xl"
+        className="absolute top-1/4 -left-32 w-[20rem] h-[20rem] md:w-[40rem] md:h-[40rem] rounded-full bg-electric/40 blur-2xl md:blur-3xl will-change-transform"
         animate={{
-          x: [0, 60, -30, 0],
-          y: [0, -40, 50, 0],
-          scale: [1, 1.1, 0.95, 1],
+          x: [0, 40, -20, 0],
+          y: [0, -30, 30, 0],
         }}
-        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
         aria-hidden
-        className="absolute bottom-0 right-0 w-[35rem] h-[35rem] rounded-full bg-cobalt/40 blur-3xl"
+        className="hidden md:block absolute bottom-0 right-0 w-[35rem] h-[35rem] rounded-full bg-cobalt/40 blur-3xl will-change-transform"
         animate={{
           x: [0, -50, 30, 0],
           y: [0, 40, -30, 0],
-          scale: [1, 0.9, 1.15, 1],
         }}
-        transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 28, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
         aria-hidden
-        className="absolute top-1/2 left-1/2 w-[28rem] h-[28rem] rounded-full bg-acid/30 blur-3xl"
+        className="hidden md:block absolute top-1/2 left-1/2 w-[28rem] h-[28rem] rounded-full bg-acid/30 blur-3xl will-change-transform"
         animate={{
           x: [0, 80, -40, 0],
           y: [0, -60, 40, 0],
         }}
-        transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
+        transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
       />
 
       <motion.div

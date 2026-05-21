@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useIsTouch } from "./useMediaQuery";
 
 export default function CustomCursor() {
+  const isTouch = useIsTouch();
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
   const ringX = useSpring(cursorX, { stiffness: 200, damping: 20, mass: 0.5 });
@@ -13,6 +15,7 @@ export default function CustomCursor() {
   );
 
   useEffect(() => {
+    if (isTouch) return;
     const move = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
@@ -30,7 +33,9 @@ export default function CustomCursor() {
       window.removeEventListener("mousemove", move);
       window.removeEventListener("mouseover", over);
     };
-  }, [cursorX, cursorY]);
+  }, [cursorX, cursorY, isTouch]);
+
+  if (isTouch) return null;
 
   return (
     <>

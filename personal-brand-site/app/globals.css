@@ -15,10 +15,9 @@
 
 html,
 body {
-  background: #0a0a0a;
-  color: #f5f1ea;
+  background: #f8f5ef;
+  color: #0f0f0f;
   cursor: none;
-  /* iOS smooth scrolling + prevent overscroll bounce repaints */
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: none;
 }
@@ -30,21 +29,9 @@ body {
   }
 }
 
-/* Respect users who explicitly want reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
 ::selection {
-  background: #d4ff3a;
-  color: #0a0a0a;
+  background: #ff5a1f;
+  color: #f8f5ef;
 }
 
 .noise::before {
@@ -53,8 +40,8 @@ body {
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.06;
-  mix-blend-mode: overlay;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
 
@@ -64,7 +51,7 @@ body {
 }
 
 .gradient-text {
-  background: linear-gradient(90deg, #ff2d55 0%, #d4ff3a 50%, #3a5cff 100%);
+  background: linear-gradient(90deg, #ff5a1f 0%, #f4a72f 50%, #5a8bff 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -76,4 +63,15 @@ body {
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

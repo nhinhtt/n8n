@@ -20,9 +20,8 @@ export default function About() {
     offset: ["start end", "end start"],
   });
 
-  const imgYRaw = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
-  const rotateRaw = useTransform(scrollYProgress, [0, 1], [-3, 3]);
-  // On mobile, skip scroll-coupled transforms (saves a per-frame update).
+  const imgYRaw = useTransform(scrollYProgress, [0, 1], ["-12%", "12%"]);
+  const rotateRaw = useTransform(scrollYProgress, [0, 1], [-2, 2]);
   const imgY = isMobile ? undefined : imgYRaw;
   const rotate = isMobile ? undefined : rotateRaw;
 
@@ -30,31 +29,29 @@ export default function About() {
     <section
       id="about"
       ref={ref}
-      className="relative py-32 px-6 md:px-12 overflow-hidden"
+      className="relative py-28 md:py-36 px-6 md:px-12 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto">
         <motion.div
-          className="flex items-center gap-4 text-xs uppercase tracking-[0.3em] text-cream/60 mb-12"
+          className="flex items-center gap-4 text-[11px] uppercase tracking-[0.28em] text-mute mb-12"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
-          <span className="block w-12 h-px bg-cream/40" />
+          <span className="block w-10 h-px bg-ink/30" />
           <span>01 — About</span>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
-          {/* Visual */}
           <motion.div
             className="lg:col-span-5 relative"
             style={{ y: imgY, rotate }}
             data-cursor="view"
           >
-            <div className="relative aspect-[3/4] overflow-hidden rounded-sm bg-gradient-to-br from-electric via-plum to-cobalt">
-              {/* Stylized portrait placeholder */}
+            <div className="relative aspect-[3/4] overflow-hidden rounded-sm bg-gradient-to-br from-flame via-gold to-sky">
               <div className="absolute inset-0 flex items-center justify-center">
                 <motion.div
-                  className="font-display text-[18rem] leading-none text-cream/90 italic"
+                  className="font-display text-[15rem] leading-none text-bone/95 italic"
                   initial={{ scale: 1.2, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
                   viewport={{ once: true, margin: "-100px" }}
@@ -63,15 +60,15 @@ export default function About() {
                   L
                 </motion.div>
               </div>
-              <motion.div
+              <div
                 className="absolute inset-0 mix-blend-overlay"
                 style={{
                   background:
-                    "radial-gradient(circle at 30% 30%, rgba(212,255,58,0.4), transparent 60%)",
+                    "radial-gradient(circle at 30% 30%, rgba(255,90,31,0.4), transparent 60%)",
                 }}
               />
               <motion.div
-                className="absolute -bottom-6 -right-6 w-32 h-32 rounded-full bg-acid flex items-center justify-center text-ink font-display text-sm uppercase tracking-widest will-change-transform"
+                className="absolute -bottom-6 -right-6 w-32 h-32 rounded-full bg-ink flex items-center justify-center text-bone font-display text-sm uppercase tracking-widest will-change-transform"
                 animate={{ rotate: 360 }}
                 transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
               >
@@ -83,7 +80,7 @@ export default function About() {
                         d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
                       />
                     </defs>
-                    <text className="text-[10px] fill-ink font-bold tracking-widest">
+                    <text className="text-[10px] fill-bone font-bold tracking-widest">
                       <textPath href="#circle">
                         AVAILABLE · 2026 · AVAILABLE · 2026 ·{" "}
                       </textPath>
@@ -94,15 +91,14 @@ export default function About() {
             </div>
           </motion.div>
 
-          {/* Text */}
           <div className="lg:col-span-7">
             <AnimatedText
               text="I design brands that move — literally and emotionally."
-              className="font-display text-4xl md:text-6xl leading-[1.05] tracking-tight"
+              className="font-display text-3xl md:text-5xl leading-[1.05] tracking-tight text-ink"
             />
 
             <motion.div
-              className="mt-10 space-y-6 text-cream/80 text-lg leading-relaxed max-w-xl"
+              className="mt-10 space-y-5 text-mute text-base md:text-lg leading-relaxed max-w-xl"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -111,35 +107,34 @@ export default function About() {
               <p>
                 For the past seven years, I&apos;ve helped founders, studios and
                 cultural institutions translate their ideas into identities
-                that vibrate. From kinetic logos to full-stack design
-                systems, every project starts with a single question:{" "}
-                <em className="text-acid not-italic font-medium">
+                that vibrate. From kinetic logos to full-stack design systems,
+                every project starts with a single question:{" "}
+                <em className="text-flame not-italic font-medium">
                   what makes this unforgettable?
                 </em>
               </p>
               <p>
                 I previously led brand at a SEA-based studio, art-directed
-                campaigns for global beauty houses, and shipped products
-                read by millions. Now I work independently with a small
-                circle of clients I deeply believe in.
+                campaigns for global beauty houses, and shipped products read
+                by millions. Now I work independently with a small circle of
+                clients I deeply believe in.
               </p>
             </motion.div>
 
-            {/* Stats */}
-            <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-6">
               {stats.map((s, i) => (
                 <motion.div
                   key={s.label}
-                  className="border-t border-cream/20 pt-4"
+                  className="border-t border-ink/15 pt-4"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.4 + i * 0.1, duration: 0.6 }}
                 >
-                  <div className="font-display text-4xl md:text-5xl">
+                  <div className="font-display text-3xl md:text-4xl text-ink">
                     {s.value}
                   </div>
-                  <div className="text-xs uppercase tracking-widest text-cream/60 mt-2">
+                  <div className="text-[11px] uppercase tracking-widest text-mute mt-2">
                     {s.label}
                   </div>
                 </motion.div>

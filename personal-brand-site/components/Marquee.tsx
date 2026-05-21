@@ -8,9 +8,9 @@ const items = [
   "Brand Identity",
   "Motion Design",
   "Art Direction",
-  "Creative Strategy",
   "Web Experience",
   "Editorial",
+  "Newsletter",
 ];
 
 export default function Marquee() {
@@ -20,27 +20,25 @@ export default function Marquee() {
     target: ref,
     offset: ["start end", "end start"],
   });
-  const x = useTransform(scrollYProgress, [0, 1], ["10%", "-25%"]);
-  const xReverse = useTransform(scrollYProgress, [0, 1], ["-10%", "5%"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["8%", "-22%"]);
 
-  // Mobile: use lightweight CSS infinite marquee — no scroll-coupled transform.
   if (isMobile) {
     return (
       <div
         ref={ref}
-        className="relative py-10 border-y border-cream/10 overflow-hidden"
+        className="relative py-8 border-y border-ink/10 overflow-hidden bg-bone"
       >
-        <div className="flex whitespace-nowrap gap-10 text-[12vw] leading-none font-display animate-marquee-slow will-change-transform">
+        <div className="flex whitespace-nowrap gap-10 text-[10vw] leading-none font-display animate-marquee-slow will-change-transform">
           {[...items, ...items].map((it, i) => (
             <span key={`${it}-${i}`} className="flex items-center gap-10">
               <span
                 className={
-                  i % 2 === 0 ? "text-cream" : "text-stroke text-cream italic"
+                  i % 2 === 0 ? "text-ink" : "text-stroke text-ink italic"
                 }
               >
                 {it}
               </span>
-              <span className="text-electric">✦</span>
+              <span className="text-flame">✦</span>
             </span>
           ))}
         </div>
@@ -51,34 +49,22 @@ export default function Marquee() {
   return (
     <div
       ref={ref}
-      className="relative py-12 md:py-20 border-y border-cream/10 overflow-hidden"
+      className="relative py-14 md:py-20 border-y border-ink/10 overflow-hidden bg-bone"
     >
       <motion.div
-        className="flex whitespace-nowrap gap-12 text-[8vw] md:text-[6vw] leading-none font-display will-change-transform"
+        className="flex whitespace-nowrap gap-12 text-[7vw] md:text-[5.5vw] leading-none font-display will-change-transform"
         style={{ x }}
       >
         {[...items, ...items, ...items].map((it, i) => (
           <span key={`${it}-${i}`} className="flex items-center gap-12">
             <span
               className={
-                i % 2 === 0 ? "text-cream" : "text-stroke text-cream italic"
+                i % 2 === 0 ? "text-ink" : "text-stroke text-ink italic"
               }
             >
               {it}
             </span>
-            <span className="text-electric">✦</span>
-          </span>
-        ))}
-      </motion.div>
-
-      <motion.div
-        className="flex whitespace-nowrap gap-12 text-[5vw] md:text-[3vw] leading-none font-display mt-6 text-cream/40 will-change-transform"
-        style={{ x: xReverse }}
-      >
-        {[...items, ...items, ...items].reverse().map((it, i) => (
-          <span key={`r-${it}-${i}`} className="flex items-center gap-12">
-            <span className="italic">{it}</span>
-            <span className="text-acid">●</span>
+            <span className="text-flame">✦</span>
           </span>
         ))}
       </motion.div>

@@ -29,7 +29,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="noise font-sans bg-ink text-cream overflow-x-hidden">
+      <body className="noise font-sans bg-bone text-ink overflow-x-hidden">
         <PageTransition />
         <CustomCursor />
         <ScrollProgress />

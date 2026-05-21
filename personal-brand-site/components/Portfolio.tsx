@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import AnimatedText from "./AnimatedText";
+import { useIsMobile } from "./useMediaQuery";
 
 const projects = [
   {
@@ -10,7 +11,7 @@ const projects = [
     year: "2025",
     cat: "Beauty / Identity",
     tagline: "Reimagining heritage fragrance for a Gen-Z audience.",
-    bg: "from-electric to-plum",
+    bg: "from-flame to-gold",
     accent: "Maison",
   },
   {
@@ -18,7 +19,7 @@ const projects = [
     year: "2025",
     cat: "Fintech / Motion",
     tagline: "A kinetic identity that makes saving feel like winning.",
-    bg: "from-cobalt to-acid",
+    bg: "from-sky to-moss",
     accent: "Tide",
   },
   {
@@ -26,7 +27,7 @@ const projects = [
     year: "2024",
     cat: "Culture / Web",
     tagline: "Indie music label site driven by sound-reactive visuals.",
-    bg: "from-plum to-electric",
+    bg: "from-ink to-flame",
     accent: "Bãi Sau",
   },
   {
@@ -34,40 +35,42 @@ const projects = [
     year: "2024",
     cat: "Lifestyle / Direction",
     tagline: "A minimal ceramics brand with a maximalist launch film.",
-    bg: "from-acid to-cobalt",
+    bg: "from-gold to-sky",
     accent: "Hư Vô",
   },
 ];
 
 export default function Portfolio() {
   const ref = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
+  const yRaw = useTransform(scrollYProgress, [0, 1], ["8%", "-8%"]);
+  const y = isMobile ? undefined : yRaw;
 
   return (
-    <section id="portfolio" className="relative py-32 px-6 md:px-12">
+    <section id="portfolio" className="relative py-28 md:py-36 px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
         <motion.div
-          className="flex items-center gap-4 text-xs uppercase tracking-[0.3em] text-cream/60 mb-12"
+          className="flex items-center gap-4 text-[11px] uppercase tracking-[0.28em] text-mute mb-12"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
-          <span className="block w-12 h-px bg-cream/40" />
+          <span className="block w-10 h-px bg-ink/30" />
           <span>03 — Selected Work</span>
         </motion.div>
 
-        <div className="flex items-end justify-between gap-6 mb-16 flex-wrap">
+        <div className="flex items-end justify-between gap-6 mb-12 flex-wrap">
           <AnimatedText
             text="Recent obsessions."
-            className="font-display text-5xl md:text-7xl leading-[1.05] max-w-4xl"
+            className="font-display text-4xl md:text-6xl leading-[1.05] max-w-4xl text-ink"
           />
           <motion.a
             href="#contact"
-            className="text-sm uppercase tracking-widest text-cream/70 hover:text-acid transition-colors flex items-center gap-2"
+            className="text-sm uppercase tracking-widest text-mute hover:text-flame transition-colors flex items-center gap-2"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -77,7 +80,10 @@ export default function Portfolio() {
           </motion.a>
         </div>
 
-        <div ref={ref} className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+        <div
+          ref={ref}
+          className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12"
+        >
           {projects.map((p, i) => {
             const isOffset = i % 2 === 1;
             return (
@@ -86,11 +92,11 @@ export default function Portfolio() {
                 href="#"
                 className={`group relative ${
                   isOffset
-                    ? "md:col-span-6 md:col-start-7 md:mt-32"
+                    ? "md:col-span-6 md:col-start-7 md:mt-24"
                     : "md:col-span-6"
                 }`}
                 style={i === 0 ? { y } : undefined}
-                initial={{ opacity: 0, y: 60 }}
+                initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8, delay: i * 0.1 }}
@@ -99,44 +105,37 @@ export default function Portfolio() {
                 <div className="overflow-hidden rounded-sm">
                   <motion.div
                     className={`aspect-[4/5] bg-gradient-to-br ${p.bg} relative flex items-center justify-center`}
-                    whileHover={{ scale: 1.05 }}
+                    whileHover={{ scale: 1.04 }}
                     transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                   >
                     <motion.div
-                      className="font-display text-[5rem] md:text-[7rem] italic text-cream/90 leading-none text-center px-6"
-                      animate={{ y: [0, -8, 0] }}
+                      className="font-display text-[5rem] md:text-[7rem] italic text-bone/95 leading-none text-center px-6"
+                      animate={{ y: [0, -6, 0] }}
                       transition={{
-                        duration: 4 + i,
+                        duration: 5 + i,
                         repeat: Infinity,
                         ease: "easeInOut",
                       }}
                     >
                       {p.accent}
                     </motion.div>
-                    <motion.div
-                      className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                      style={{
-                        background:
-                          "radial-gradient(circle at center, rgba(10,10,10,0.4), transparent 70%)",
-                      }}
-                    />
                   </motion.div>
                 </div>
 
                 <div className="mt-6 flex items-start justify-between gap-6">
                   <div>
-                    <h3 className="font-display text-2xl md:text-3xl">
+                    <h3 className="font-display text-xl md:text-2xl text-ink">
                       {p.title}
                     </h3>
-                    <p className="text-cream/60 mt-1 text-sm md:text-base">
+                    <p className="text-mute mt-1 text-sm md:text-base">
                       {p.tagline}
                     </p>
                   </div>
                   <div className="text-right shrink-0">
-                    <div className="text-xs uppercase tracking-widest text-cream/50">
+                    <div className="text-[11px] uppercase tracking-widest text-mute">
                       {p.cat}
                     </div>
-                    <div className="font-mono text-sm text-acid mt-1">
+                    <div className="font-mono text-sm text-flame mt-1">
                       {p.year}
                     </div>
                   </div>

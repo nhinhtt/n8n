@@ -8,8 +8,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#0a0a0a",
-        cream: "#f5f1ea",
+        // Light theme — newsletter / premium creator brand
+        bone: "#f8f5ef", // page bg, warm cream
+        ink: "#0f0f0f", // primary text
+        mute: "#6b6760", // secondary text
+        line: "#1a1a1a", // borders
+        flame: "#ff5a1f", // hero accent (gem orange from reference)
+        gold: "#f4a72f",
+        moss: "#3a4d2c",
+        sky: "#5a8bff",
+        // legacy accents retained for select use
         electric: "#ff2d55",
         acid: "#d4ff3a",
         cobalt: "#3a5cff",

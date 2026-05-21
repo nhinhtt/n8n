@@ -40,11 +40,11 @@ export default function CustomCursor() {
   return (
     <>
       <motion.div
-        className="pointer-events-none fixed top-0 left-0 z-[60] mix-blend-difference"
+        className="pointer-events-none fixed top-0 left-0 z-[60]"
         style={{ x: cursorX, y: cursorY }}
       >
         <motion.div
-          className="-translate-x-1/2 -translate-y-1/2 rounded-full bg-cream"
+          className="-translate-x-1/2 -translate-y-1/2 rounded-full bg-ink"
           animate={{
             width: variant === "default" ? 8 : variant === "view" ? 72 : 24,
             height: variant === "default" ? 8 : variant === "view" ? 72 : 24,
@@ -53,15 +53,15 @@ export default function CustomCursor() {
         />
       </motion.div>
       <motion.div
-        className="pointer-events-none fixed top-0 left-0 z-[60] mix-blend-difference"
+        className="pointer-events-none fixed top-0 left-0 z-[60]"
         style={{ x: ringX, y: ringY }}
       >
         <motion.div
-          className="-translate-x-1/2 -translate-y-1/2 rounded-full border border-cream/60 flex items-center justify-center text-[10px] uppercase tracking-widest text-cream"
+          className="-translate-x-1/2 -translate-y-1/2 rounded-full border border-ink/60 flex items-center justify-center text-[10px] uppercase tracking-widest text-ink"
           animate={{
             width: variant === "view" ? 96 : 36,
             height: variant === "view" ? 96 : 36,
-            opacity: variant === "default" ? 0.5 : 1,
+            opacity: variant === "default" ? 0.4 : 1,
           }}
           transition={{ type: "spring", stiffness: 200, damping: 20 }}
         >

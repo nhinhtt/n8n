@@ -1,0 +1,10 @@
+# Không commit video/ảnh đầu vào và kết quả (file media nặng)
+input/*
+output/*
+assets/*
+!.gitkeep
+
+# Giữ lại cấu trúc thư mục
+!input/.gitkeep
+!output/.gitkeep
+!assets/.gitkeep
